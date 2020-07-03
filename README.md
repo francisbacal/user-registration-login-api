@@ -2,7 +2,7 @@
 
 ### Clone:
 
-    `git@github.com:francisbacal/hoteldelluna-backend.git`
+    `git@github.com:francisbacal/user-registration-login-api.git`
 
 then in the project directory, you can run:
 
