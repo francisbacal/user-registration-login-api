@@ -88,9 +88,12 @@ UserSchema.path('email').validate(async function (v) {
 })
 
 
-//remove version key to generated JSON file response
+//remove version key and passwordHash to generated JSON file response
 UserSchema.set('toJSON', {
-    versionKey: false
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret.passwordHash;
+    }
 })
 
 

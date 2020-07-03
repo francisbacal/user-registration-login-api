@@ -8,6 +8,8 @@ const {sendVerification} = require('../_helper/email-sender');
 
 module.exports = {
     register,
+    getAll,
+    getOne,
     verifyEmail,
     authenticate
 }
@@ -65,6 +67,33 @@ async function register(params) {
     //added return user to display token in json response
     //remove next line after development (only send verificationToken in email)   
     return user
+}
+
+
+async function getAll() {
+    const user = await User.find({});
+
+    return user;
+}
+
+
+async function getOne(req) {
+
+    const id = req.params.id;
+    const user = await User.find({_id: id});
+
+
+    if (!req.user.isAdmin) {
+        if (req.user._id == id) {
+            return user;
+        } else {
+            throw 'Unauthorized'
+        }
+    } else {
+        return user
+    }
+
+    
 }
 
 

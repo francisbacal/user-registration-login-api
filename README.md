@@ -39,6 +39,18 @@ path:
         - content: application/json
             - email: string, required (sample: admin@email.com)
             - password: string, required (sample: test1234)
+
+    `/users/getAll`
+
+        - method: GET
+        - authenticate: true
+        - isAdmin: true
+
+    `/users/:id` (sample: /users/5efeedd9e0408f38bc765f36)
+
+        - method: GET
+        - authenticate: true
+        - isAdmin: true
     
     `/users/verify-email`
 
