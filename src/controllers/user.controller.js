@@ -10,6 +10,8 @@ module.exports = {
     register,
     getAll,
     getOne,
+    update,
+    _delete,
     verifyEmail,
     authenticate
 }
@@ -82,18 +84,50 @@ async function getOne(req) {
     const id = req.params.id;
     const user = await User.find({_id: id});
 
-
+    //check if user is not Admin
     if (!req.user.isAdmin) {
+        //if not admin check if user id is equal to requested id params else throw error
         if (req.user._id == id) {
             return user;
         } else {
             throw 'Unauthorized'
         }
     } else {
+
+        //if admin return user
         return user
     }
 
     
+}
+
+async function update(req) {
+
+    const id = req.params.id;
+    
+    //check if user id is same with requested user id params throw error if not
+    if (req.user._id == id) {
+        return user = await User.findByIdAndUpdate(
+            id,
+            req.body,
+            {new: true}
+        );
+    } else {
+        throw 'User Not Found'
+    }
+
+    
+}
+
+async function _delete(req) {
+
+    const id = req.params.id;
+
+    if (req.user.isAdmin) {
+        const user = await User.findByIdAndRemove(id)
+    } else {
+        throw 'Unauthorized'
+    }
 }
 
 

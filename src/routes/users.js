@@ -25,6 +25,8 @@ router.get('/', passport.authenticate('jwt', {session:false}), isAdmin, getAll);
 router.get('/:id', passport.authenticate('jwt', {session:false}), getOne);
 router.post('/verify-email', verifyEmail);
 router.post('/login', authenticate);
+router.put('/:id', passport.authenticate('jwt', {session:false}), update);
+router.delete('/:id', passport.authenticate('jwt', {session:false}), isAdmin, _delete);
 
 module.exports = router;
 
@@ -49,6 +51,18 @@ function getAll(req,res, next) {
 function getOne(req,res, next) {
     userController.getOne(req)
         .then(user => res.json(user))
+        .catch(next)
+}
+
+function update(req,res,next) {
+    userController.update(req)
+        .then(user => res.json(user))
+        .catch(next)
+}
+
+function _delete(req, res, next) {
+    userController._delete(req)
+        .then(user => res.json({message: User Deleted}))
         .catch(next)
 }
 
