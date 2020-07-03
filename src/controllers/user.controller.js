@@ -26,7 +26,8 @@ async function authenticate(req, res, next) {
         const authenticatedUser = {
             _id: user._id,
             email: user.email,
-            name: user.name
+            name: user.name,
+            isAdmin: user.isAdmin
         }
         return {authenticatedUser, token};
     }
