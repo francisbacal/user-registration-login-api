@@ -62,7 +62,7 @@ function update(req,res,next) {
 
 function _delete(req, res, next) {
     userController._delete(req)
-        .then(user => res.json({message: User Deleted}))
+        .then(user => res.json({message: 'User Deleted'}))
         .catch(next)
 }
 
